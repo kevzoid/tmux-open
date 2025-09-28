@@ -88,7 +88,11 @@ generate_open_search_command() {
 # 2. invoke the command by pressing enter/C-m
 generate_editor_command() {
 	local environment_editor=$(get_editor_from_the_env_var)
-	local editor=$(get_tmux_option "$open_editor_override" "$environment_editor")
+	# local editor=$(get_tmux_option "$open_editor_override" "$environment_editor")
+	local editor=code
+	if [[ $editor == "code" ]]; then
+		editor="$editor -g"
+	fi
 	# vim freezes terminal unless there's the '--' argument. Other editors seem
 	# to be fine with it (textmate [mate], light table [table]).
 	echo "$(preserve_url_hash) | xargs -I {} tmux send-keys '$editor -- \"{}\"'; tmux send-keys 'C-m'"
