@@ -36,7 +36,7 @@ get_editor_from_the_env_var() {
 }
 
 preserve_url_hash() {
-	echo "sed s/##/####/g"
+	echo "sed s/##/####/g | sed 's/^file:\/\///g'"
 }
 
 command_generator() {
