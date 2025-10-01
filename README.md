@@ -70,6 +70,10 @@ Put `set -g @open-editor 'C-x'` in `tmux.conf`.
 
 Put `set -g @open-S 'https://www.duckduckgo.com/?q='` in `tmux.conf`
 
+> How can I change the default open command?
+
+Put `set -g @open-command 'wsl-open'` in `tmux.conf`
+
 > How can I use multiple search engines?
 
 Put:

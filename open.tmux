@@ -6,6 +6,7 @@ source "$CURRENT_DIR/scripts/helpers.sh"
 
 default_open_key="o"
 open_option="@open"
+open_command="@open-command"
 
 default_open_editor_key="C-o"
 open_editor_option="@open-editor"
@@ -51,7 +52,10 @@ search_command_generator() {
 }
 
 generate_open_command() {
-	if is_osx; then
+	local custom_open_command=$(get_tmux_option "$open_command")
+	if [ -n "$custom_open_command" ]; then
+		echo "$(command_generator "$custom_open_command")"
+	elif is_osx; then
 		echo "$(command_generator "open")"
 	elif is_cygwin; then
 		echo "$(command_generator "cygstart")"
@@ -65,7 +69,10 @@ generate_open_command() {
 
 generate_open_search_command() {
 	local engine="$1"
-	if is_osx; then
+	local custom_open_command=$(get_tmux_option "$open_command")
+	if [ -n "$custom_open_command" ]; then
+		echo "$(search_command_generator "$custom_open_command" "$engine")"
+	elif is_osx; then
 		echo "$(search_command_generator "open" "$engine")"
 	elif is_cygwin; then
 		echo "$(command_generator "cygstart")"
